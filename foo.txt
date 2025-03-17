@@ -1,0 +1,12 @@
+dup
+dup.c
+foo.txt
+lab1
+lab1.c
+lab2
+lab2.c
+shell
+shell.c
+test
+testfork
+testfork.c
