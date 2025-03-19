@@ -104,7 +104,7 @@ int main() {
     // Create reader threads
     for (int i = 0; i < 5; i++) {
         reader_ids[i] = i + 1;
-        if(pthread_create(&readers[i], NULL, reader, &reader_ids[i])){
+        if(pthread_create(&readers[i], NULL, reader, &reader_ids[i])!=0){
             perror("Error creating reader thread");
             exit(EXIT_FAILURE);
         }
@@ -113,7 +113,7 @@ int main() {
     // Create writer threads
     for (int i = 0; i < 3; i++){
         writer_ids[i] = i + 1;
-        if(pthread_create(&writers[i], NULL, writer, &writer_ids[i])){
+        if(pthread_create(&writers[i], NULL, writer, &writer_ids[i])!=0){
             perror("Error creating writer thread");
             exit(EXIT_FAILURE);
         }
