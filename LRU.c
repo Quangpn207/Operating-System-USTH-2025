@@ -115,7 +115,7 @@ void displayMemoryState(Page frames[], int frameCount, int currentPage, bool isP
             printf("%2d ", tempFrames[i].pageNO);
         }
     }
-    printf("\n");
+    printf("]\n");
 }
 /*
 Simulates the LRU page replacement algorithm
