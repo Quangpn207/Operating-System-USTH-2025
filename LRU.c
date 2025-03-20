@@ -189,6 +189,6 @@ int main(int argc, char *argv[]) {
     }
     printf("\n\n");
     Stats stats = simulateLRU(referenceString, size, frameCount, verbose);
-
+    printf("%d %d %2f\n",stats.pageFaults, stats.pageHits, stats.faultRate);
     return 0;
 }
