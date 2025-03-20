@@ -35,11 +35,10 @@ void init() {
 }
 void beginRead(){
     pthread_mutex_lock(&rwMonitor.mutex);
-    rwMonitor.nbReaders++;
     while(rwMonitor.writer){
         pthread_cond_wait(&rwMonitor.canRead, &rwMonitor.mutex);
     }
-    pthread_cond_signal(&rwMonitor.canRead);
+    rwMonitor.nbReaders++;
     pthread_mutex_unlock(&rwMonitor.mutex);
 }
 void endRead(){
@@ -61,15 +60,10 @@ void beginWrite(){
 void endWrite(){
     pthread_mutex_lock(&rwMonitor.mutex);
     rwMonitor.writer=false;
-    if(rwMonitor.nbReaders>0){
-        pthread_cond_signal(&rwMonitor.canRead);
-    }
-    else{
-        pthread_cond_signal(&rwMonitor.canWrite);
-    }
+    pthread_cond_signal(&rwMonitor.canWrite);    
+    pthread_cond_signal(&rwMonitor.canRead);
     pthread_mutex_unlock(&rwMonitor.mutex);
 }
-
 /*
 reader - Thread func for reader threads
 */
