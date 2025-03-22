@@ -20,6 +20,8 @@ int main(){
         close(pipeAB[0]);
         dup2(pipeAB[1],1);
         close(pipeAB[1]);
+        close(pipeBC[0]);
+        close(pipeBC[1]);
         execlp("ps","ps","-ef",NULL);
         perror("execlp A");
         exit(EXIT_FAILURE);
@@ -30,12 +32,12 @@ int main(){
         exit(EXIT_FAILURE);
     }
     if (pidB == 0){
-        close(pipeAB[1]);
         dup2(pipeAB[0],0);
-        close(pipeAB[0]);
-        close(pipeBC[0]);
         dup2(pipeBC[1],1);
         close(pipeBC[1]);
+        close(pipeBC[0]);
+        close(pipeAB[0]);
+        close(pipeAB[1]);
         execlp("grep","grep","firefox",NULL);
         perror("execlp B");
         exit(EXIT_FAILURE);
@@ -46,6 +48,8 @@ int main(){
         exit(EXIT_FAILURE);
     }
     if (pidC == 0){
+        close(pipeAB[0]);
+        close(pipeAB[1]);
         close(pipeBC[1]);
         dup2(pipeBC[0],0);
         close(pipeBC[0]);
